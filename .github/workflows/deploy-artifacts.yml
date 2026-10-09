@@ -69,12 +69,9 @@ jobs:
         with:
           repository: ${{ secrets.ARTIFACTS_REPO }}
           token: ${{ secrets.ARTIFACTS_REPO_TOKEN }}
-          path: artifacts
 
-      - name: Setup Cloudflare Wrangler
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: deploy --env production
-        working-directory: ./artifacts
+      - name: Deploy to Cloudflare Workers
+        run: npx wrangler@4 deploy --env production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
