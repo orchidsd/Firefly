@@ -44,7 +44,10 @@ jobs:
         run: touch dist/.nojekyll
 
       - name: Copy wrangler config into dist
-        run: cp wrangler.toml dist/
+        run: |
+          cp wrangler.toml dist/
+          mkdir -p dist/.github/workflows
+          cp .github/artifacts/deploy.yml dist/.github/workflows/deploy.yml
 
       - name: Deploy to Artifacts Repository
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
