@@ -4,5 +4,12 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"assets": {
 		"directory": "./dist"
+	},
+	"env": {
+		"production": {
+			"assets": {
+				"directory": "."
+			}
+		}
 	}
 }
