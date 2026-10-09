@@ -1,4 +1,4 @@
-name: Deploy Artifacts and Cloudflare Workers
+name: Deploy Artifacts
 
 on:
   push:
@@ -59,20 +59,3 @@ jobs:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'Deploy artifacts from ${{ github.repository }}@${{ github.sha }}'
-
-  deploy-cloudflare:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    steps:
-      - name: Checkout artifacts repository
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ secrets.ARTIFACTS_REPO }}
-          token: ${{ secrets.ARTIFACTS_REPO_TOKEN }}
-
-      - name: Deploy to Cloudflare Workers
-        run: npx wrangler@4 deploy --env production
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}

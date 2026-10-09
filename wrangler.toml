@@ -4,6 +4,4 @@ compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = "."
-
-[env.production]
-assets.directory = "."
+ignore = [".git/**", ".github/**", "wrangler.toml", ".nojekyll"]
